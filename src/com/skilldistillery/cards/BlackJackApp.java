@@ -4,10 +4,15 @@ import java.util.Scanner;
 
 public class BlackJackApp {
 
+	// create a new player and a new dealer gives each its own Arraylist to add
+	// cards
+	// new player can call any method from the player class(which calls from the
+	// hand class, which uses the deck->cards->rank->suit)
+	// new dealer can use all methods from player class and extra methods from
+	// dealer class
 	Player user = new Player();
 	Dealer dealer = new Dealer();
 	Scanner userInput = new Scanner(System.in);
-	// run the deck
 
 	public static void main(String[] args) {
 		BlackJackApp bja = new BlackJackApp();
@@ -19,10 +24,8 @@ public class BlackJackApp {
 	public void runMenu() {
 
 		System.out.println("Welcome to Blackjack!");
-
+		// shuffle deck
 		dealer.shuffleDeck();
-
-		// make loop
 		// deal a card to the user
 		Card card = dealer.dealCard();
 		user.addCardToHand(card);
@@ -38,17 +41,11 @@ public class BlackJackApp {
 		card = dealer.dealCard();
 		dealer.addCardToHand(card);
 
-//		boolean noWinnersYet;
-//		while (noWinnersYet = true) {
 		// tell user what their total hand value is
 		System.out.print("Here is your current hand total:  ");
 		user.printValue();
-//			
-//		System.err.println("Dealers visible card:");
-//		dealer.hand.showTopCard();
-//		System.out.println();
-		// let user decide to hit or stay
 
+		// check if user already has 21
 		boolean userDidntBust;
 		while (userDidntBust = true) {
 			if (user.isIt21()) {
@@ -56,6 +53,7 @@ public class BlackJackApp {
 				userDidntBust = false;
 				break;
 			}
+			// let user decide to hit or stay
 			System.out.print("Would you like to hit or stay?  ");
 			String input = userInput.next();
 			if (input.equalsIgnoreCase("hit")) {
@@ -66,19 +64,16 @@ public class BlackJackApp {
 				user.printValue();
 
 				// if user hits and they go over 21 tell them
+				// if user hits and gets 21 tell them
 				if (user.isItOver21()) {
 					System.out.println("You have gone over 21 you lose!");
 					userDidntBust = false;
 					break;
 				} else if (user.isIt21()) {
 					System.out.println("You have 21! You win!");
-					// userDidntBust = false;
 					userDidntBust = false;
 					break;
 				}
-
-//				System.out.print("Would you like to hit or stay?  ");
-//				input = userInput.next();
 
 			} else if (input.equalsIgnoreCase("Stay")) {
 
@@ -93,31 +88,38 @@ public class BlackJackApp {
 			System.err.println("Dealers hand:");
 			dealer.printHand();
 			dealer.printValue();
-			
+
 			if (dealer.isIt21()) {
 				userDidntBust = false;
 				break;
-			}else if (dealer.isLessThan17()) {
+			} else if (dealer.isLessThan17()) {
+
+				// if dealers hand is less than 17 they will draw another card
 				System.out.println("Dealer will draw another card");
 				card = dealer.dealCard();
 				dealer.addCardToHand(card);
 				dealer.printHand();
 				dealer.printValue();
 				if (dealer.isItOver21()) {
+					// if dealer goes over 21 the user wins
 					System.out.println("Dealer has gone over 21! You win!");
 					userDidntBust = false;
 					break;
 				} else if (dealer.isIt21()) {
+					// if the dealer got exactly 21 and the user has less the dealer wins
 					System.out.println("Dealer has 21! You lose!");
 					userDidntBust = false;
 					break;
 				}
-
+				// if the dealer has 17 or more they stay
 			} else if (!dealer.isLessThan17()) {
 				break;
 			}
 		}
-
+		// determine winner
+		// if players value is higher than the dealer but less than 21 the users win
+		// if the players value is less than the dealer then they lose
+		// if players value and the dealers value are the exact same its a push
 		if (user.totalValueOfHand() > dealer.totalValueOfHand() && user.totalValueOfHand() < 21) {
 			System.out.println("Congratulations you won!");
 		} else if (user.totalValueOfHand() < dealer.totalValueOfHand() && dealer.totalValueOfHand() < 21) {

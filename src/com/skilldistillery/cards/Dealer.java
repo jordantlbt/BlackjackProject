@@ -1,7 +1,7 @@
 package com.skilldistillery.cards;
 
 public class Dealer extends Player{
-	
+	//Dealer can use all the same methods the player class has since it implements the player class
 
 	Deck deck = new Deck();
 	
@@ -18,9 +18,6 @@ public class Dealer extends Player{
 		return deck.dealCard();
 		
 	}
-	//if total value of the dealers cards is 17 or more the dealer has to stay
-	//if the total value of the dealers cards is over 21 they lose 
-	//if the dealers value is less than the player the dealer losses
-	//if the dealers value is more than the player but less than 22 the dealer wins
+
 
 }

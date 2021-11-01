@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Player {
 
+	// this creates a new hand(its own Arraylist to add cards) for a player
 	protected Hand hand = new Hand();
-	
 
 	public void addCardToHand(Card card) {
 		hand.addCard(card);
@@ -14,31 +14,30 @@ public class Player {
 	}
 
 	public void printHand() {
-		// card is shown to everyone
+		// hand is shown to everyone
 		System.out.println(hand);
 
 	}
 
 	public int totalValueOfHand() {
-		// cards are added up
+		// cards are added up and returns value
 		return hand.getHandValue();
 	}
-	
+
 	public void printValue() {
+		// show the value of the hand without changing the value
 		System.out.println(hand.getHandValue());
 	}
 
-	// player can hit or stay
+	// find out if the hand is over 21
 	public boolean isItOver21() {
 		return hand.isItOver21();
-		
+
 	}
-	
+
+	// find out if the hand is exactly 21
 	public boolean isIt21() {
 		return hand.isIt21();
 	}
-	// if players value goes over 21 they lose
-	// if the players value is less than the dealer then they lose
-	// if players value has higher value than dealer but less than 22 they win
 
 }
